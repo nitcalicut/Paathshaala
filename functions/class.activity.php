@@ -22,6 +22,7 @@ class activity
 {
 	/**
 	* Static function to save content likes and dislikes in the database.
+	* TODO: Resource intensive, needs to be optimized.
 	* @param integer $cid Content ID of the liked/disliked content.
 	* @param integer $uid User ID who liked/disliked content.
 	* @param integer $like User Preference (1:Like | -1:Dislike)
@@ -29,6 +30,7 @@ class activity
 	*/
 	public static function like($cid,$uid,$like)
 	{
+		activity::removelike($cid,$uid);
 		$sql="Insert into content_like(cl_cid,cl_uid,cl_value) values('".$cid."','".$uid."','".$like."') returning cl_id";
 		$likeid=pg_fetch_result(dbquery($sql),0,0);
 		if($likeid)
