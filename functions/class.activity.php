@@ -13,6 +13,7 @@
 */
 
 include_once 'functions.php';
+include_once 'class.user.php';
 
 /**
 * Class for handling user activities.
@@ -100,5 +101,41 @@ class activity
 		$comment=pg_escape_string($comment);
 		$sql="Insert into comments(cm_cid,cm_uid,cm_msg) values('".$cid."','".$uid."','".$comment."') returning cm_id";
 		return pg_fetch_result(dbquery($sql),0,0);
+	}
+	
+	/**
+	* Login function
+	* @param string $uname Username
+	* @param string $upass User Password
+	* @return 
+	*/
+	public static function login($uname,$upass)
+	{
+		global $global_salt;
+		$uname=pg_escape_string($uname);
+		$upass=sha1($upass.$global_salt);
+		$sql="Select us_id, us_name, us_fullname, us_status from users where us_name='$uname' and us_pass='$upass'";
+		$res=dbquery($sql);
+		if($res)
+		{
+			$user=resource2array($res);
+			session_start();
+			$_SESSION['uid']=$user[0];
+			$_SESSION['username']=$user[1];
+			$_SESSION['fullname']=$user[2];
+			$_SESSION['status']=$user[3];
+			$_SESSION['userpic']=user::getUserPictureS($user[0]);
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
+	* Destroys the session of a user and logs the user out.
+	*/
+	public static function logout()
+	{
+		session_destroy();
+		$_SESSION=array();
 	}
 }
