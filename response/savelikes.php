@@ -1,11 +1,12 @@
 <?php
 	/**
-	* Accepts video likes from front end and stores in database.
-	* TODO: Implement Sessions.
+	* Accepts Content likes from front end and stores in database.
 	*/
 	include '../functions/class.activity.php';
 	$cid=$_POST['cid'];
 	$value=$_post['value'];
 	$uid=$_SESSION['uid'];
-	activity::like($cid,$uid,$value);
+	if($uid){
+		activity::like($cid,$uid,$value);
+	}
 ?>

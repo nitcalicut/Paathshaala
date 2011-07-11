@@ -12,7 +12,7 @@
 * Includes files for CouchDB connectivity.
 */
 
-include_once 'settings.php';
+include_once 'functions.php';
 
 /**
 * Comment class for updating CouchDb.
@@ -70,6 +70,21 @@ class comment
 		$this->context['http']['method'] = 'DELETE';
 		$context = stream_context_create($this->context);
 		return file_get_contents($this->url."/".$this->database."/".$id."?rev=$rev", false, $context);
+	}
+	
+	/**
+	* Report a comment as a spam.
+	* @param string $comid Comment ID
+	* @param string $revid Revision ID of the comment
+	* @param integer $uid User ID of person who reported spam.
+	* @return integer Spam return ID
+	*/
+	public static function report($comid, $revid, $uid)
+	{
+		$sql = "Insert into comment_spam(sp_comid,sp_revid,sp_uid) values('$comid','$revid','$uid') returning sp_id";
+		$row=pg_fetch_row(dbquery($sql));
+		return $row[0];
+		
 	}
 
 }
