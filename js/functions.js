@@ -31,6 +31,7 @@
 
 	var Paathshaala = {
 		activePage : 1,
+		titleCache : "",
 		comments : function() {
 				/* Submit comment using an enter key press */
 				$('#comment').keypress(function(event) {
@@ -151,6 +152,8 @@
 
 				$.getJSON( link, function(myobj) {
 					myobj.tagString ="";
+					// get file name w/o extension or path
+					Paathshaala.titleCache = myobj.path.slice(myobj.path.lastIndexOf('/') +1 , myobj.path.length -4 )
 					var i = 0, video;
 					if ( cid === 'newvideo' ) {
 						myobj.tags = ['Enter new tags for the video'];
@@ -684,11 +687,12 @@
 			}
 			verified.series = $("span#sName").text();
 			verified.desc = $("textarea#desc").attr('value');
+			verified.file = Paathshaala.titleCache;
 			dom.help.text("Submitting the video");
 			$.post("response/submitvideo.php", verified, function(response) {
 				if(response.status === 1 ) {
 					$(this).hide();
-					$('div.mainRight').html("Video submitted successfully.<br/>Now you may enjoy it here :)");
+					$('div.mainRight').html("Video submitted successfully.");
 				} else {
 					dom.help.text("Error submitting the video");
 				}
