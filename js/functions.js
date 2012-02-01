@@ -649,7 +649,7 @@
 						verified.tags = data;
 					}
 					for (i in tagList) {
-						tagList[i] = jQuery.trim(tagList[i]);
+						tagList[i] = $.trim(tagList[i]);
 						if (tagList[i].length > 2) {
 							tagString = tagString + "<li><a href='search.php?tag=" + tagList[i] + "'>" + tagList[i] + "</a><li>"
 						} else {
