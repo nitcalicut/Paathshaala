@@ -12,13 +12,12 @@
 							$_POST['desc'],
 							$_SESSION['uid'],
 							"SP",
-							$global_user_folder,
+							"videos",
 							$_POST['file']);
 			if($v->getContentId()){
 				$v->addTags($_POST['tags']);
-				shell_exec(
-					"mv ".$_SERVER["DOCUMENT_ROOT"]."/".$global_raw_videos_folder."/".$_POST['file'].".ogv" ." ".
-					$_SERVER["DOCUMENT_ROOT"]."/"."videos"."/".$v->getContentId().$_POST['file'].".ogv");
+				$mvcommand = "mv ".$_SERVER["DOCUMENT_ROOT"]."/".$global_raw_videos_folder."/".$_POST['file'].".ogv" ." ".$_SERVER["DOCUMENT_ROOT"]."/"."videos"."/".$v->getContentId().$_POST['file'].".ogv";
+				$mv = shell_exec($mvcommand);
 				echo "{ \"status\" : 1 ,\"cid\" : ".$v->getContentId()."}";
 			}
 			else{
