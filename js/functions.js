@@ -187,7 +187,8 @@
 						});
 					} else {
 							$('div.videoBar').html("<div style='text-align:center;'>Thanks for adding a new video to paathshaala</div>");
-							$('span.videoTitle').html("Enter a new title for your video");
+							$('span.videoTitle').html(Paathshaala.titleCache.replace(/_/g,' '));
+							$('input#title').attr('value',Paathshaala.titleCache.replace(/_/g,' '));
 							$('div.VideoDesc').html("Description please")
 					}
 					Paathshaala.validate.video();
