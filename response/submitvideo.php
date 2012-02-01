@@ -2,8 +2,7 @@
 
 	include '../functions/class.video.php';
 	session_start();
-	global $global_raw_videos_folder, ;
-	global $global_user_folder;
+	global $global_raw_videos_folder, $global_user_folder;
 	if(	isset($_POST['title']) &&
 		isset($_POST['desc']) &&
 		isset($_SESSION['uid']) &&
