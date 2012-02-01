@@ -10,6 +10,12 @@
 	else{
 		$login="fail";
 	}
-	header("Location: ".$_POST['page']."?".$_POST['parameter']."&login=$login");
+	if($_POST['parameter']!=""){
+		header("Location: ".$_POST['page']."?".$_POST['parameter']."&login=$login");
+	}
+	else{
+		header("Location: ".$_POST['page']."?"."login=$login");
+	}
+	
 
 ?>
