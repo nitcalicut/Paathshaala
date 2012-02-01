@@ -4,7 +4,7 @@
 
 ## Authors :
 * Jaseem Abid <jaseemabid@gmail.com>
-* Vipin Nair <swvist@jaseemabid.com>
+* Vipin Nair <swvist@gmail.com>
 
 ## License : GPL V3
 
