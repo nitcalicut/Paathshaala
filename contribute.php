@@ -5,6 +5,11 @@
 <?php
 	include 'source.php';
 	include 'functions/ui.php';
+	if(!checksession()){
+		redirect();
+	} else {
+		$u = new user ($_SESSION['uid']);
+	}
 	echo $header;
 ?>
 <link rel='stylesheet' href='css/video-js.css'>
